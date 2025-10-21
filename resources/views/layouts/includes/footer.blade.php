@@ -2,13 +2,13 @@
     $links = [
         [
             'name' => 'Iniciar Sesión',
-            'href' => route('auth.login'),
-            'active' => request()->routeIs('auth.login')
+            'href' => route('login'),
+            'active' => request()->routeIs('login')
         ],
         [
             'name' => 'Registrar Cuenta',
-            'href' => route('auth.register'),
-            'active' => request()->routeIs('auth.register')
+            'href' => route('register'),
+            'active' => request()->routeIs('register')
         ],
     ];    
 @endphp
@@ -35,7 +35,7 @@
     <hr class="my-6 border-gray-700 sm:mx-auto lg:my-8" />
     <span class="block text-sm text-gray-400 sm:text-center">
         © {{ now()->year }} 
-        <a href="{{ route('auth.login') }}" class="hover:underline">LaraSocial™</a>. 
+        <a href="{{ route('login') }}" class="hover:underline">LaraSocial™</a>. 
         Todos los derechos reservados.
     </span>
 </div>

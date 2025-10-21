@@ -10,6 +10,6 @@ class PostController extends Controller
 {
     public function index(): View
     {
-        dd('post...');
+        return view('posts.index');
     }
 }

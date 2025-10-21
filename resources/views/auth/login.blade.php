@@ -17,19 +17,29 @@
                 Iniciar Sesión
             </h1>
 
-            <form class="space-y-4 text-start">
+            @if (session('error'))
+                <div id="error-message" class="bg-red-600 rounded-lg w-full py-2 px-2.5 mb-4 text-center text-sm shadow" role="alert">
+                    <p class="text-white">{{ session('error') }}</p>
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('login.store') }}" class="space-y-4 text-start" novalidate>
+                @csrf
                 <div>
-                    <label for="name" class="text-gray-700 text-sm uppercase font-bold block mb-1">
-                        Nombre
+                    <label for="email" class="text-gray-700 text-sm uppercase font-bold block mb-1">
+                        Correo electrónico
                     </label>
                     
                     <input 
-                        type="text"
-                        id="name"
-                        name="name"
+                        type="email"
+                        id="email"
+                        name="email"
                         placeholder="Ingresa tu nombre completo"
-                        class="px-3 py-2.5 rounded w-full text-sm focus:outline-none focus:ring-1 focus:border-gray-700 focus:ring-gray-700 text-gray-700"
+                        class="px-3 py-2.5 rounded w-full text-sm focus:outline-none focus:ring-1 focus:border-gray-700 focus:ring-gray-700 text-gray-700 @error('email') border-red-600 @enderror"
                     />
+                    @error('email')
+                        <p class="text-sm text-red-600 font-medium">{{ $message }}</p>
+                    @enderror
                 </div>
                 
                 <div>
@@ -48,12 +58,20 @@
                         id="password"
                         name="password"
                         placeholder="********"
-                        class="px-3 py-2.5 rounded w-full text-sm focus:outline-none focus:ring-1 focus:border-gray-700 focus:ring-gray-700 text-gray-700"
+                        class="px-3 py-2.5 rounded w-full text-sm focus:outline-none focus:ring-1 focus:border-gray-700 focus:ring-gray-700 text-gray-700 @error('password') border-red-600 @enderror"
                     />
+                    @error('password')
+                        <p class="text-sm text-red-600 font-medium">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="flex items-center justify-start gap-2">
-                    <input type="checkbox" class="rounded border-gray-700">
+                    <input 
+                        type="checkbox" 
+                        id="remember"
+                        name="remember" 
+                        class="rounded border-gray-700"
+                    />
                     <span class="text-sm">Recuérdame</span>
                 </div>
 
@@ -66,7 +84,7 @@
                 <hr class="border-gray-400">
 
                 <div class="text-center">
-                    <a href="{{ route('auth.register') }}" class="text-sm font-medium hover:text-gray-900">
+                    <a href="{{ route('register') }}" class="text-sm font-medium hover:text-gray-900">
                         No tienes una cuenta? <span class="text-gray-700">Regístrate.</span>
                     </a>
                 </div>
@@ -74,3 +92,17 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const errorMessage = document.getElementById('error-message');
+
+            if (errorMessage) {
+                setTimeout(() => {
+                    errorMessage.remove();
+                }, 4000);
+            }
+        });
+    </script>
+@endpush

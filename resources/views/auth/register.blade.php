@@ -17,7 +17,7 @@
                 Registrar Cuenta
             </h1>
 
-            <form method="POST" action="{{ route('auth.register.store') }}" class="space-y-4 text-start" novalidate>
+            <form method="POST" action="{{ route('register.store') }}" class="space-y-4 text-start" novalidate>
                 @csrf
                 <div>
                     <label for="name" class="text-gray-700 text-sm uppercase font-bold block mb-1">
@@ -113,7 +113,7 @@
                 <hr class="border-gray-400">
 
                 <div class="text-center">
-                    <a href="{{ route('auth.login') }}" class="text-sm font-medium hover:text-gray-900">
+                    <a href="{{ route('login') }}" class="text-sm font-medium hover:text-gray-900">
                         Ya tienes una cuenta? <span class="text-gray-700">Inicia Sesión.</span>
                     </a>
                 </div>
