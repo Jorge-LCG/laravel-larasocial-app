@@ -18,8 +18,14 @@
             </h1>
 
             @if (session('error'))
-                <div id="error-message" class="bg-red-600 rounded-lg w-full py-2 px-2.5 mb-4 text-center text-sm shadow" role="alert">
+                <div id="message" class="bg-red-600 rounded-lg w-full py-2 px-2.5 mb-4 text-center text-sm shadow" role="alert">
                     <p class="text-white">{{ session('error') }}</p>
+                </div>
+            @endif
+
+            @if (session('status'))
+                <div id="message" class="bg-green-600 rounded-lg w-full p-2.5 mb-4 text-center text-sm shadow" role="alert">
+                    <p class="text-white">{{ session('status') }}</p>
                 </div>
             @endif
 
@@ -34,7 +40,7 @@
                         type="email"
                         id="email"
                         name="email"
-                        placeholder="Ingresa tu nombre completo"
+                        placeholder="Ingresa tu correo electrónico"
                         class="px-3 py-2.5 rounded w-full text-sm focus:outline-none focus:ring-1 focus:border-gray-700 focus:ring-gray-700 text-gray-700 @error('email') border-red-600 @enderror"
                     />
                     @error('email')
@@ -48,7 +54,7 @@
                             Contraseña
                         </label>
 
-                        <a href="" class="text-xs text-gray-700 font-medium hover:text-gray-950">
+                        <a href="{{ route('password') }}" class="text-xs text-gray-700 font-medium hover:text-gray-950">
                             Olvidaste tu contraseña?
                         </a>
                     </div>
@@ -96,11 +102,11 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const errorMessage = document.getElementById('error-message');
+            const message = document.getElementById('message');
 
-            if (errorMessage) {
+            if (message) {
                 setTimeout(() => {
-                    errorMessage.remove();
+                    message.remove();
                 }, 4000);
             }
         });
