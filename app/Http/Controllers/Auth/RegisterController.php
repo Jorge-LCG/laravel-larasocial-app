@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\RegisterRequest;
-use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\Auth\RegisterRequest;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -14,8 +18,15 @@ class RegisterController extends Controller
         return view('auth.register');
     }
 
-    public function store(RegisterRequest $request)
+    public function store(RegisterRequest $request): RedirectResponse
     {
-        dd($request);
+        $validated = $request->validated();
+        $validated['username'] = Str::slug($validated['username']);
+        $validated['password'] = Hash::make($validated['password']);
+
+        $user = User::create($validated);
+        Auth::login($user);
+
+        return redirect()->route('posts.index');
     }
 }
