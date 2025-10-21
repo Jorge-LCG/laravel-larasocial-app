@@ -17,7 +17,8 @@
                 Registrar Cuenta
             </h1>
 
-            <form class="space-y-4 text-start">
+            <form method="POST" action="{{ route('auth.register.store') }}" class="space-y-4 text-start" novalidate>
+                @csrf
                 <div>
                     <label for="name" class="text-gray-700 text-sm uppercase font-bold block mb-1">
                         Nombre
@@ -28,9 +29,12 @@
                         id="name"
                         name="name"
                         placeholder="Ingresa tu nombre completo"
-                        class="px-3 py-2.5 rounded w-full text-sm focus:outline-none focus:ring-1 focus:border-gray-700 focus:ring-gray-700 text-gray-700"
-                        :value="old('name')"
+                        class="px-3 py-2.5 rounded w-full text-sm focus:outline-none focus:ring-1 focus:border-gray-700 focus:ring-gray-700 text-gray-700 @error('name') border-red-600 @enderror"
+                        value="{{ old('name') }}"
                     />
+                    @error('name')
+                        <p class="text-sm text-red-600 font-medium">{{ $message }}</p>
+                    @enderror
                 </div>
                 
                 <div>
@@ -43,9 +47,12 @@
                         id="username"
                         name="username"
                         placeholder="Ingresa tu nombre de usuario"
-                        class="px-3 py-2.5 rounded w-full text-sm focus:outline-none focus:ring-1 focus:border-gray-700 focus:ring-gray-700 text-gray-700"
-                        :value="old('username')"
+                        class="px-3 py-2.5 rounded w-full text-sm focus:outline-none focus:ring-1 focus:border-gray-700 focus:ring-gray-700 text-gray-700 @error('username') border-red-600 @enderror"
+                        value="{{ old('username') }}"
                     />
+                    @error('username')
+                        <p class="text-sm text-red-600 font-medium">{{ $message }}</p>
+                    @enderror
                 </div>
                 
                 <div>
@@ -58,9 +65,12 @@
                         id="email"
                         name="email"
                         placeholder="Ingresa tu correo electrónico"
-                        class="px-3 py-2.5 rounded w-full text-sm focus:outline-none focus:ring-1 focus:border-gray-700 focus:ring-gray-700 text-gray-700"
-                        :value="old('email')"
+                        class="px-3 py-2.5 rounded w-full text-sm focus:outline-none focus:ring-1 focus:border-gray-700 focus:ring-gray-700 text-gray-700 @error('email') border-red-600 @enderror"
+                        value="{{ old('email') }}"
                     />
+                    @error('email')
+                        <p class="text-sm text-red-600 font-medium">{{ $message }}</p>
+                    @enderror
                 </div>
                 
                 <div>
@@ -73,8 +83,11 @@
                         id="password"
                         name="password"
                         placeholder="********"
-                        class="px-3 py-2.5 rounded w-full text-sm focus:outline-none focus:ring-1 focus:border-gray-700 focus:ring-gray-700 text-gray-700"
+                        class="px-3 py-2.5 rounded w-full text-sm focus:outline-none focus:ring-1 focus:border-gray-700 focus:ring-gray-700 text-gray-700 @error('password') border-red-600 @enderror"
                     />
+                    @error('password')
+                        <p class="text-sm text-red-600 font-medium">{{ $message }}</p>
+                    @enderror
                 </div>
                 
                 <div>
